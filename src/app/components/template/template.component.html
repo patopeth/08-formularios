@@ -1,0 +1,135 @@
+<h4>Formularios <small>template</small></h4>
+<hr>
+<form (ngSubmit)="guardar(forma)" #forma="ngForm" novalidate>
+
+  <div>
+    <div class="form-group row">
+      <label for="nombre" class="col-2 col-form-label">Nombre</label>
+      <div class="col-8">
+
+        <input class="form-control"
+               type="text"
+               placeholder="Nombre"
+               name="nombre"
+               id="nombre"
+               [(ngModel)]="usuario.nombre"
+               minlength="5"
+               required
+               #nombre="ngModel"
+               [ngClass]="{ 'is-invalid': (nombre.errors?.required || nombre.errors?.minlength) && nombre.touched, 'is-valid': nombre.valid }">
+
+               <app-validateinput class="invalid-feedback" [item]="nombre"></app-validateinput>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="apellido" class="col-2 col-form-label">Apellido</label>
+      <div class="col-8">
+
+        <input class="form-control"
+               type="text"
+               id="apellido"
+               name="apellido"
+               placeholder="Apellido"
+              [(ngModel)]="usuario.apellido"
+              required
+              #apellido="ngModel"
+              [ngClass]="{ 'is-invalid': apellido.errors?.required && apellido.touched, 'is-valid': apellido.valid }">
+
+              <app-validateinput class="invalid-feedback" [item]="apellido"></app-validateinput>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group row">
+    <label for="email"  class="col-2 col-form-label">Correo</label>
+    <div class="col-md-8">
+
+      <input class="form-control"
+             type="email"
+             id="email"
+             name="email"
+             placeholder="Correo electrónico"
+             [(ngModel)]="usuario.email"
+             required
+             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+             #email="ngModel"
+             [ngClass]="{ 'is-invalid': (email.errors?.required || email.errors?.pattern) && email.touched, 'is-valid': email.valid }">
+
+             <app-validateinput class="invalid-feedback" [item]="email"></app-validateinput>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="pais" class="col-2 col-form-label">Pais</label>
+    <div class="col-8">
+    <select class="form-control"
+     name="pais"
+     id="pais"
+     [(ngModel)]="usuario.pais"
+     required
+     #pais="ngModel"
+     [ngClass]="{ 'is-invalid': (pais.errors?.required || pais.errors?.pattern) && pais.touched, 'is-valid': pais.valid }">
+
+     <option value="">Seleccione un pais</option>
+     <option *ngFor="let item of paises" [value]="item.codigo">{{item.nombre}}</option>
+    </select>
+       <app-validateinput class="invalid-feedback" [item]="pais"></app-validateinput>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Sexo</label>
+    <div class="col-8">
+
+    <div *ngFor="let s of sexos; let i = index" class="custom-control custom-radio custom-control-inline">
+    <input
+    id="customRadioInline{{i + 1}}"
+    type="radio"
+    name="sexo"
+    [(ngModel)]="usuario.sexo"
+    [value]="s"
+    class="custom-control-input">
+
+    <label class="custom-control-label" for="customRadioInline{{i + 1}}">{{ s }}</label>
+  </div>
+
+  </div>
+</div>
+
+<div class="form-group row">
+    <label class="col-2 col-form-label">Acepta</label>
+    <div class="col-8">
+
+  <div class="custom-control custom-checkbox">
+    <input type="checkbox"
+    class="custom-control-input"
+    id="customCheck1"
+    name="acepta"
+    [(ngModel)]="usuario.acepta"
+    #acepta="ngModel"
+    required
+    [ngClass]="{ 'is-invalid': (acepta.errors?.required || acepta.errors?.pattern) && acepta.touched }">
+    <label class="custom-control-label" for="customCheck1">Acepta términos y condiciones</label>
+
+     <app-validateinput class="invalid-feedback" [item]="acepta"></app-validateinput>
+  </div>
+
+  </div>
+</div>
+
+
+<div class="form-group row">
+  <label class="col-2 col-form-label">&nbsp;</label>
+  <div class="input-group col-md-8">
+    <button [disabled]="!forma.valid" type="submit" class="btn btn-outline-primary">
+      Guardar
+    </button>
+  </div>
+</div>
+</form>
+
+<pre>
+{{usuario | json}}
+</pre>

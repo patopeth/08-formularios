@@ -1,0 +1,9 @@
+<div *ngIf="item.errors?.required">
+  Este campo es requerido
+</div>
+<div *ngIf="item.errors?.minlength">
+  Este campo requiere por lo menos {{item.errors.minlength.requiredLength}} caracteres
+</div>
+<div *ngIf="item.errors?.pattern">
+  Este campo no cumple con el formato indicado
+</div>
